@@ -24,7 +24,7 @@ PROCEDURE inicializar(VAR parsedText: tTexto);
 	END;
 PROCEDURE retirarSimbolos(VAR linea: string);
 	{Convierte las lineas de texto a solo letras minusculas y espacios. P. ej.:
-	'¡Vaya ilusion, 6 amigos!' se convierte en ' vaya ilusion	amigos '}
+	'¡Vaya ilusion, 6 amigos!' se convierte en ' vaya ilusion    amigos '}
 	VAR n, tamano: integer;
 	BEGIN
 		tamano:= length(linea);
