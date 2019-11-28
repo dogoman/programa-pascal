@@ -20,7 +20,7 @@ PROCEDURE inicializar(VAR parsedText: tTexto);
 	VAR n: integer;
 	{En un principio asignamos a parsedText strings de longitud 0, esta vacia}
 	BEGIN
-		FOR n:=1 to maxPalabras DO setlength(parsedText[n],0);
+		FOR n:=1 TO maxPalabras DO setlength(parsedText[n],0);
 	END;
 PROCEDURE retirarSimbolos(VAR linea: string);
 	{Convierte las lineas de texto a solo letras minusculas y espacios. P. ej.:
