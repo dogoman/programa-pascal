@@ -24,10 +24,10 @@ PROCEDURE inicializar(VAR parsedText: tTexto);
 	END;
 PROCEDURE retirarSimbolos(VAR linea: string);
 	{Convierte las lineas de texto a solo letras minusculas y espacios. P. ej.:
-	'¡Vaya ilusion, 6 amigos!' se convierte en ' vaya ilusion    amigos '}
+	'¡Vaya ilusion, 6 amigos!' se convierte en ' vaya ilusion	amigos '}
 	VAR n, tamano: integer;
 	BEGIN
-        tamano:= length(linea);
+		tamano:= length(linea);
 		IF (tamano<>0) THEN BEGIN
 			FOR n:= 1 TO tamano DO BEGIN
 				CASE linea[n] OF
@@ -57,8 +57,8 @@ PROCEDURE retirarSimbolos(VAR linea: string);
 					'X': linea[n]:= 'x';
 					'Y': linea[n]:= 'y';
 					'Z': linea[n]:= 'z';
-					ELSE IF ((ord(linea[n])<97) or (ord(linea[n])>122)) THEN
-						linea[n]:= ' ';
+				ELSE IF ((ord(linea[n])<97) or (ord(linea[n])>122)) THEN
+					linea[n]:= ' ';
 				END;
 			END;
 		END;
@@ -72,20 +72,20 @@ VAR posSigPalabra: integer);
 		tamano:= length(linea);
 		palabra:= 'iniciada';
 		IF (tamano<>0) THEN BEGIN
-        	FOR j:= 1 TO tamano DO BEGIN
+			FOR j:= 1 TO tamano DO BEGIN
 				IF ((linea[j]<>' ') and (j<>tamano)) THEN BEGIN
 					palabra[k]:= linea[j];
 					k:= k + 1;
 				END
 				ELSE IF ((linea[j]<>' ') and (j=tamano)) THEN BEGIN
-                	palabra[k]:= linea[j];
+					palabra[k]:= linea[j];
 					setlength(palabra,k);
-                    parsedText[posSigPalabra]:=  palabra;
+					parsedText[posSigPalabra]:=  palabra;
 					posSigPalabra:= posSigPalabra + 1;
 				END
 				ELSE IF ((j>1) and (linea[j-1]<>' ')) THEN BEGIN
 					setlength(palabra,k-1);
-                    parsedText[posSigPalabra]:=  palabra;
+					parsedText[posSigPalabra]:=  palabra;
 					posSigPalabra:= posSigPalabra + 1;
 					k:= 1;
 				END;
@@ -101,7 +101,7 @@ VAR numPalabras: integer);
 		WHILE not(EOF(entrada)) DO BEGIN
 			readLn(entrada,linea);
 			retirarSimbolos(linea);
-            lineasToPalabras(linea,parsedText,posSigPalabra);
+			lineasToPalabras(linea,parsedText,posSigPalabra);
 		END;
 		numPalabras:= posSigPalabra - 1;
 	END;
@@ -111,31 +111,31 @@ PROCEDURE printPalabras (VAR parsedText: tTexto; numPalabras: integer);
 	BEGIN
 		IF (numPalabras<>0) THEN BEGIN
 			j:=1;
-            REPEAT
+			REPEAT
 				{Numero de columnas con que saldra impresa la lista de palabras}
 				{P.ej. si se quieren 5 columnas, escribir 'columnas:= j + 4;'}
 				columnas:= j + 3;
 				WHILE (columnas>numPalabras) DO columnas:= columnas - 1;
 				FOR n:=j TO columnas DO BEGIN
-                    write(n:3, '. ');
+					write(n:3, '. ');
 					write(parsedText[n]);
-	    	        espacios:= (maxLetras + 1) - length(parsedText[n]);
+					espacios:= (maxLetras + 1) - length(parsedText[n]);
 					FOR m:=1 TO espacios DO write(' ');
 				END;
 				j:= columnas + 1;
 				writeLn();
 			UNTIL (columnas=numPalabras);
-    	END;
+		END;
 	END;
 BEGIN {Programa principal}
 
-    inicializar(parsedText);
+	inicializar(parsedText);
 	assign(entrada, 'texto.txt');
 	reset(entrada);
 	{Convertimos el texto en un array de palabras}
 	textoToPalabras(entrada,parsedText,numPalabras);
 	{Ahora trabajamos con el array 'parsedText'}
-    close(entrada);
+	close(entrada);
 
 
 
@@ -166,15 +166,15 @@ BEGIN {Programa principal}
 	writeLn('Palabras que acaban por vocal: ');
 	writeLn('Palabras que acaban por consonante: ');
 	writeLn('Numero de palabras: ', numPalabras);
-    writeLn('Numero de silabas (sin contar hiatos): ');
+	writeLn('Numero de silabas (sin contar hiatos): ');
 
-    writeLn();
+	writeLn();
 	writeLn('Palabras en el texto:');
 	printPalabras(parsedText,numPalabras);
 
 	readLn();
 
-    {Addendum:
+	{Addendum:
 	No es necesario inicializar parsedText si no se trabaja con strings
 	de parsedText[n] donde n es mayor al numPalabras}
 
