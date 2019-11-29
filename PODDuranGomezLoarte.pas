@@ -140,7 +140,7 @@ PROCEDURE printLinea;
 BEGIN {Programa principal}
 
 	inicializar(parsedText);
-	assign(entrada, 'texto.txt');
+	assign(entrada,'texto.txt');
 	reset(entrada);
 	{Convertimos el texto en un array de palabras}
 	textoToPalabras(entrada,parsedText,numPalabras);
