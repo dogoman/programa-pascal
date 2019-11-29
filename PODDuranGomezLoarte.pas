@@ -4,10 +4,11 @@ PROGRAM PODDuranGomezLoarte (input, output);
 No debe haber tildes ni eñes. El texto reside en 'texto.txt' junto al programa.}
 
 CONST
-{Aumentar el numero maximo de palabras, o el numero maximo de
-letras por palabra, si es necesario.}
+{Aumentar el numero maximo de palabras,
+o el numero maximo de letras por palabra, si es necesario.}
 	maxPalabras= 350;
-	maxLetras= 23;
+	maxLetras= 32;
+	anchuraConsola= 118; {Anchura en numero de caracteres}
 TYPE
 	tPalabra= string[maxLetras];
 	tTexto= array[1..maxPalabras] of tPalabra;
@@ -107,25 +108,34 @@ VAR numPalabras: integer);
 	END;
 PROCEDURE printPalabras (VAR parsedText: tTexto; numPalabras: integer);
 {'parsedText' no se modifica, solo se lee}
-	VAR n, m, j, espacios, columnas: integer;
+	VAR n, m, j, maxLongPalabra, totalColumnas, numEnLista, espacios: integer;
 	BEGIN
 		IF (numPalabras<>0) THEN BEGIN
+			maxLongPalabra:=1;
+			FOR n:=1 TO numPalabras DO
+				IF (maxLongPalabra<length(parsedText[n])) THEN
+					maxLongPalabra:=length(parsedText[n]);
 			j:=1;
+			totalColumnas:= anchuraConsola div (maxLongPalabra + 6);
 			REPEAT
-				{Numero de columnas con que saldra impresa la lista de palabras}
-				{P.ej. si se quieren 5 columnas, escribir 'columnas:= j + 4;'}
-				columnas:= j + 3;
-				WHILE (columnas>numPalabras) DO columnas:= columnas - 1;
-				FOR n:=j TO columnas DO BEGIN
+				numEnLista:= j + totalColumnas - 1;
+				WHILE (numEnLista>numPalabras) DO numEnLista:= numEnLista - 1;
+				FOR n:=j TO numEnLista DO BEGIN
 					write(n:3, '. ');
 					write(parsedText[n]);
-					espacios:= (maxLetras + 1) - length(parsedText[n]);
+					espacios:= maxLongPalabra - length(parsedText[n]) + 1;
 					FOR m:=1 TO espacios DO write(' ');
 				END;
-				j:= columnas + 1;
+				j:= numEnLista + 1;
 				writeLn();
-			UNTIL (columnas=numPalabras);
+			UNTIL (numEnLista=numPalabras);
 		END;
+	END;
+PROCEDURE printLinea;
+	VAR n: integer;
+	BEGIN
+		FOR n:=1 TO anchuraConsola DO write('-');
+		writeLn();
 	END;
 BEGIN {Programa principal}
 
@@ -151,15 +161,17 @@ BEGIN {Programa principal}
 	en el array parsedText.}
 
 
-	
+
 	{Añadir codigo restante aqui}
 
-	
-	
+
+
 	writeLn();
-	writeln('Este programa muestra varias estadisticas del texto');
-	writeLn('que hay en su mismo directorio, en "texto.txt".');
-	writeLn('Las estadisticas son las siguientes: ');
+	write('Este programa muestra estadisticas del texto ');
+	writeLn('en "texto.txt", ');
+	write('archivo en su mismo directorio. Las estadisticas ');
+	writeLn('son las siguientes.');
+	printLinea;
 	writeLn();
 	writeLn('Palabras que empiezan por vocal: ');
 	writeLn('Palabras que empiezan por consonante: ');
@@ -167,10 +179,12 @@ BEGIN {Programa principal}
 	writeLn('Palabras que acaban por consonante: ');
 	writeLn('Numero de palabras: ', numPalabras);
 	writeLn('Numero de silabas (sin contar hiatos): ');
+	printLinea;
 
 	writeLn();
 	writeLn('Palabras en el texto:');
 	printPalabras(parsedText,numPalabras);
+	printLinea;
 
 	readLn();
 
