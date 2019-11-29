@@ -6,8 +6,8 @@ No debe haber tildes ni eñes. El texto reside en 'texto.txt' junto al programa.
 CONST
 {Aumentar el numero maximo de palabras,
 o el numero maximo de letras por palabra, si es necesario.}
-	maxPalabras= 350;
-	maxLetras= 32;
+	maxPalabras= 250;
+	maxLetras= 25;
 	anchuraConsola= 118; {Anchura en numero de caracteres}
 TYPE
 	tPalabra= string[maxLetras];
@@ -17,6 +17,19 @@ VAR
 	parsedText: tTexto;
 	numPalabras: integer;
 
+PROCEDURE creacionFichero (VAR entrada: text);
+	BEGIN
+		{$I-} {se desactiva para controlar reset}
+		reset(entrada);
+		{$I+} {se activa para detectar otros errores que no controlamos}
+		IF (IOresult<>0) THEN BEGIN
+			rewrite(entrada);
+			writeLn(entrada,'Archivo creado.');
+			close(entrada);
+			writeLn('(El archivo "texto.txt" no existe, ha sido creado.)');
+
+		END;
+	END;
 PROCEDURE inicializar (VAR parsedText: tTexto);
 	VAR n: integer;
 	{En un principio asignamos a parsedText strings de longitud 0, esta vacia}
@@ -139,14 +152,22 @@ PROCEDURE printLinea;
 	END;
 BEGIN {Programa principal}
 
-	inicializar(parsedText);
 	assign(entrada,'texto.txt');
+
+	writeLn();
+	write('Este programa muestra estadisticas del texto ');
+	writeLn('en "texto.txt", ');
+	write('archivo en su mismo directorio. Las estadisticas ');
+	writeLn('son las siguientes.');
+	creacionFichero(entrada);
+	printLinea;
+
 	reset(entrada);
+	inicializar(parsedText);
 	{Convertimos el texto en un array de palabras}
 	textoToPalabras(entrada,parsedText,numPalabras);
 	{Ahora trabajamos con el array 'parsedText'}
 	close(entrada);
-
 
 
 	{'parsedText' es un array con todas las palabras del texto original
@@ -166,12 +187,6 @@ BEGIN {Programa principal}
 
 
 
-	writeLn();
-	write('Este programa muestra estadisticas del texto ');
-	writeLn('en "texto.txt", ');
-	write('archivo en su mismo directorio. Las estadisticas ');
-	writeLn('son las siguientes.');
-	printLinea;
 	writeLn();
 	writeLn('Palabras que empiezan por vocal: ');
 	writeLn('Palabras que empiezan por consonante: ');
