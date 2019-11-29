@@ -16,14 +16,17 @@ VAR
 	entrada: text;
 	parsedText: tTexto;
 	numPalabras: integer;
+	vocalInicial, consonanteInicial: integer;
+	vocalFinal, consonanteFinal: integer;
+	numSilabas: integer;
 
-PROCEDURE inicializar(VAR parsedText: tTexto);
+PROCEDURE inicializar (VAR parsedText: tTexto);
 	VAR n: integer;
 	{En un principio asignamos a parsedText strings de longitud 0, esta vacia}
 	BEGIN
 		FOR n:=1 TO maxPalabras DO setlength(parsedText[n],0);
 	END;
-PROCEDURE retirarSimbolos(VAR linea: string);
+PROCEDURE retirarSimbolos (VAR linea: string);
 	{Convierte las lineas de texto a solo letras minusculas y espacios. P. ej.:
 	'¡Vaya ilusion, 6 amigos!' se convierte en ' vaya ilusion    amigos '}
 	VAR n, tamano: integer;
@@ -58,8 +61,8 @@ PROCEDURE retirarSimbolos(VAR linea: string);
 					'X': linea[n]:= 'x';
 					'Y': linea[n]:= 'y';
 					'Z': linea[n]:= 'z';
-				ELSE IF ((ord(linea[n])<97) or (ord(linea[n])>122)) THEN
-					linea[n]:= ' ';
+					ELSE IF ((ord(linea[n])<97) or (ord(linea[n])>122)) THEN
+						linea[n]:= ' ';
 				END;
 			END;
 		END;
@@ -106,6 +109,39 @@ VAR numPalabras: integer);
 		END;
 		numPalabras:= posSigPalabra - 1;
 	END;
+PROCEDURE letraInicial (VAR parsedText: tTexto; VAR vocalInicial,
+consonanteInicial: integer; numPalabras: integer);
+{'parsedText' no se modifica, solo se lee}
+	VAR n: integer; letra: char;
+	BEGIN
+		vocalInicial:= 0;
+		IF (numPalabras<>0) THEN BEGIN
+			FOR n:= 1 to numPalabras DO BEGIN
+				letra:= parsedText[n][1];
+				IF ((letra='a') or (letra='e') or (letra='i') or
+					(letra='o') or (letra='u')) THEN
+					vocalInicial:= vocalInicial + 1;
+			END;
+		END;
+		consonanteInicial:= numPalabras - vocalinicial;
+	END;
+PROCEDURE letraFinal (VAR parsedText: tTexto; VAR vocalFinal,
+consonanteFinal: integer; numPalabras: integer);
+{'parsedText' no se modifica, solo se lee}
+	VAR n, j: integer; letra: char;
+	BEGIN
+		vocalFinal:= 0;
+		IF (numPalabras<>0) THEN BEGIN
+			FOR n:= 1 to numPalabras DO BEGIN
+				j:= length(parsedText[n]);
+				letra:= parsedText[n][j];
+				IF ((letra='a') or (letra='e') or (letra='i') or
+					(letra='o') or (letra='u')) THEN
+					vocalFinal:= vocalFinal + 1;
+			END;
+		END;
+		consonanteFinal:= numPalabras - vocalFinal;
+	END;
 PROCEDURE printPalabras (VAR parsedText: tTexto; numPalabras: integer);
 {'parsedText' no se modifica, solo se lee}
 	VAR n, m, j, maxLongPalabra, totalColumnas, numEnLista, espacios: integer;
@@ -147,24 +183,8 @@ BEGIN {Programa principal}
 	{Ahora trabajamos con el array 'parsedText'}
 	close(entrada);
 
-
-
-	{'parsedText' es un array con todas las palabras del texto original
-	en minusculas.
-
-	Asi pues si el texto es 'Las primeras noticias.'
-	parsedText[1]= 'las'
-	parsedText[2]= 'primeras'
-	parsedText[3]= 'noticias'
-
-	numPalabras es el numero de palabras que hay en el texto, y por tanto
-	en el array parsedText.}
-
-
-
-	{Añadir codigo restante aqui}
-
-
+	letraInicial(parsedText,vocalInicial,consonanteInicial,numPalabras);
+	letraFinal(parsedText,vocalFinal,consonanteFinal,numPalabras);
 
 	writeLn();
 	write('Este programa muestra estadisticas del texto ');
@@ -173,10 +193,10 @@ BEGIN {Programa principal}
 	writeLn('son las siguientes.');
 	printLinea;
 	writeLn();
-	writeLn('Palabras que empiezan por vocal: ');
-	writeLn('Palabras que empiezan por consonante: ');
-	writeLn('Palabras que acaban por vocal: ');
-	writeLn('Palabras que acaban por consonante: ');
+	writeLn('Palabras que empiezan por vocal: ', vocalInicial);
+	writeLn('Palabras que empiezan por consonante: ', consonanteInicial);
+	writeLn('Palabras que acaban por vocal: ', vocalFinal);
+	writeLn('Palabras que acaban por consonante: ', consonanteFinal);
 	writeLn('Numero de palabras: ', numPalabras);
 	writeLn('Numero de silabas (sin contar hiatos): ');
 	printLinea;
