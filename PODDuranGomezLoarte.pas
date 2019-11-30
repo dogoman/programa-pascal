@@ -18,16 +18,16 @@ VAR
 	numPalabras: integer;
 
 PROCEDURE creacionFichero (VAR entrada: text);
+{Si no existe el archivo, se crea}
 	BEGIN
 		{$I-} {se desactiva para controlar reset}
 		reset(entrada);
 		{$I+} {se activa para detectar otros errores que no controlamos}
-		IF (IOresult<>0) THEN BEGIN
+		IF (IOResult<>0) THEN BEGIN
 			rewrite(entrada);
 			writeLn(entrada,'Archivo creado.');
 			close(entrada);
 			writeLn('(El archivo "texto.txt" no existe, ha sido creado.)');
-
 		END;
 	END;
 PROCEDURE inicializar (VAR parsedText: tTexto);
