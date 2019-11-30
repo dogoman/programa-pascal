@@ -122,8 +122,8 @@ VAR numPalabras: integer);
 PROCEDURE printPalabras (VAR parsedText: tTexto; numPalabras: integer);
 {Aquí 'parsedText' no se modifica, solo se lee}
 	VAR
-	n, m, j, maxLongPalabra, totalColumnas: integer;
-	numEnLista, espacios: integer;
+		n, m, j, maxLongPalabra, totalColumnas: integer;
+		numEnLista, espacios: integer;
 	BEGIN
 		IF (numPalabras<>0) THEN BEGIN
 			maxLongPalabra:= 1;
