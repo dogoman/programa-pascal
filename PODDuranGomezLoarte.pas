@@ -179,10 +179,12 @@ BEGIN {Programa principal}
 
 	{'parsedText' es un array con todas las palabras del texto original
 	en minusculas.
+
 	Asi pues si el texto es 'Las primeras noticias.'
 	parsedText[1]= 'las'
 	parsedText[2]= 'primeras'
 	parsedText[3]= 'noticias'
+
 	numPalabras es el numero de palabras que hay en el texto, y por tanto
 	en el array parsedText.}
 
