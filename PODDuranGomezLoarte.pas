@@ -8,7 +8,9 @@ CONST
 o el numero máximo de letras por palabra, si es necesario.}
 	maxPalabras= 250;
 	maxLetras= 25;
-	anchuraConsola= 118; {Anchura en numero de caracteres}
+	anchuraConsola= 120; {Anchura en numero de caracteres}
+	{Por defecto en Windows 10 y servidores myApps URJC la consola es de
+	120 chars de ancho. Windows 7 y XP: 80 chars.}
 TYPE
 	tPalabra= string[maxLetras];
 	tTexto= array[1..maxPalabras] of tPalabra;
@@ -37,7 +39,7 @@ PROCEDURE inicializar (VAR parsedText: tTexto);
 		FOR n:=1 TO maxPalabras DO setlength(parsedText[n],0);
 	END;
 PROCEDURE retirarSimbolos (VAR linea: string);
-{Convierte las lineas de texto a solo letras minusculas y espacios. P. ej.:
+{Convierte las lineas de texto a sólo letras minusculas y espacios. P. ej.:
 '¡Vaya ilusion, 6 amigos!' se convierte en ' vaya ilusion    amigos '}
 	VAR n, tamano: integer;
 	BEGIN
@@ -120,7 +122,7 @@ VAR numPalabras: integer);
 		numPalabras:= posSigPalabra - 1;
 	END;
 PROCEDURE printPalabras (VAR parsedText: tTexto; numPalabras: integer);
-{Aquí 'parsedText' no se modifica, solo se lee}
+{Aquí 'parsedText' no se modifica, sólo se lee}
 	VAR
 		n, m, j, maxLongPalabra, totalColumnas: integer;
 		numEnLista, espacios: integer;
