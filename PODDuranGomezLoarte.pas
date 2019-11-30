@@ -133,7 +133,7 @@ PROCEDURE printPalabras (VAR parsedText: tTexto; numPalabras: integer);
 				IF (maxLongPalabra<length(parsedText[n])) THEN
 					maxLongPalabra:= length(parsedText[n]);
 			j:= 1;
-			totalColumnas:= (anchuraConsola - 4) div (maxLongPalabra + 6);
+			totalColumnas:= (anchuraConsola - 5) div (maxLongPalabra + 6);
 			writeLn('    Palabras en el texto:');
 			writeLn();
 			REPEAT
@@ -154,7 +154,7 @@ PROCEDURE printPalabras (VAR parsedText: tTexto; numPalabras: integer);
 PROCEDURE printLinea;
 	VAR n: integer;
 	BEGIN
-		FOR n:=1 TO anchuraConsola DO write('-');
+		FOR n:=1 TO (anchuraConsola-1) DO write('-');
 		writeLn();
 	END;
 BEGIN {Programa principal}
@@ -179,12 +179,10 @@ BEGIN {Programa principal}
 
 	{'parsedText' es un array con todas las palabras del texto original
 	en minusculas.
-
 	Asi pues si el texto es 'Las primeras noticias.'
 	parsedText[1]= 'las'
 	parsedText[2]= 'primeras'
 	parsedText[3]= 'noticias'
-
 	numPalabras es el numero de palabras que hay en el texto, y por tanto
 	en el array parsedText.}
 
