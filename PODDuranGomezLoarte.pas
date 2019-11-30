@@ -1,11 +1,11 @@
 PROGRAM PODDuranGomezLoarte (input, output);
 
-{Este programa muestra estadisticas varias de un texto corto en castellano.
+{Este programa muestra estadísticas varias de un texto corto en castellano.
 No debe haber tildes ni eñes. El texto reside en 'texto.txt' junto al programa.}
 
 CONST
-{Aumentar el numero maximo de palabras,
-o el numero maximo de letras por palabra, si es necesario.}
+{Aumentar el numero máximo de palabras,
+o el numero máximo de letras por palabra, si es necesario.}
 	maxPalabras= 250;
 	maxLetras= 25;
 	anchuraConsola= 118; {Anchura en numero de caracteres}
@@ -18,7 +18,7 @@ VAR
 	numPalabras: integer;
 
 PROCEDURE creacionFichero (VAR entrada: text);
-{Si no existe el archivo, se crea}
+{Si no existe el archivo "texto.txt", se crea}
 	BEGIN
 		{$I-} {se desactiva para controlar reset}
 		reset(entrada);
@@ -27,23 +27,23 @@ PROCEDURE creacionFichero (VAR entrada: text);
 			rewrite(entrada);
 			writeLn(entrada,'Archivo creado.');
 			close(entrada);
-			writeLn('(El archivo "texto.txt" no existe, ha sido creado.)');
+			writeLn('    (El archivo "texto.txt" no existe, ha sido creado.)');
 		END;
 	END;
 PROCEDURE inicializar (VAR parsedText: tTexto);
+{En un principio asignamos a parsedText strings de longitud 0, esta vacía}
 	VAR n: integer;
-	{En un principio asignamos a parsedText strings de longitud 0, esta vacia}
 	BEGIN
 		FOR n:=1 TO maxPalabras DO setlength(parsedText[n],0);
 	END;
 PROCEDURE retirarSimbolos (VAR linea: string);
-	{Convierte las lineas de texto a solo letras minusculas y espacios. P. ej.:
-	'¡Vaya ilusion, 6 amigos!' se convierte en ' vaya ilusion    amigos '}
+{Convierte las lineas de texto a solo letras minusculas y espacios. P. ej.:
+'¡Vaya ilusion, 6 amigos!' se convierte en ' vaya ilusion    amigos '}
 	VAR n, tamano: integer;
 	BEGIN
 		tamano:= length(linea);
 		IF (tamano<>0) THEN BEGIN
-			FOR n:= 1 TO tamano DO BEGIN
+			FOR n:=1 TO tamano DO BEGIN
 				CASE linea[n] OF
 					'A': linea[n]:= 'a';
 					'B': linea[n]:= 'b';
@@ -79,14 +79,14 @@ PROCEDURE retirarSimbolos (VAR linea: string);
 	END;
 PROCEDURE lineasToPalabras (VAR linea: string; VAR parsedText: tTexto;
 VAR posSigPalabra: integer);
-	{Guarda todas las palabras de 'linea' en 'parsedText'}
+{Guarda todas las palabras de 'linea' en 'parsedText'}
 	VAR j, k, tamano: integer; palabra: string;
 	BEGIN
 		k:= 1;
 		tamano:= length(linea);
 		palabra:= 'iniciada';
 		IF (tamano<>0) THEN BEGIN
-			FOR j:= 1 TO tamano DO BEGIN
+			FOR j:=1 TO tamano DO BEGIN
 				IF ((linea[j]<>' ') and (j<>tamano)) THEN BEGIN
 					palabra[k]:= linea[j];
 					k:= k + 1;
@@ -108,10 +108,10 @@ VAR posSigPalabra: integer);
 	END;
 PROCEDURE textoToPalabras (VAR entrada: text; VAR parsedText: tTexto;
 VAR numPalabras: integer);
-	{Guarda todas las palabras de 'entrada' en 'parsedText', consecutivamente}
+{Guarda todas las palabras de 'entrada' en 'parsedText', consecutivamente}
 	VAR	posSigPalabra: integer; linea: string;
 	BEGIN
-		posSigPalabra:=1;
+		posSigPalabra:= 1;
 		WHILE not(EOF(entrada)) DO BEGIN
 			readLn(entrada,linea);
 			retirarSimbolos(linea);
@@ -120,19 +120,24 @@ VAR numPalabras: integer);
 		numPalabras:= posSigPalabra - 1;
 	END;
 PROCEDURE printPalabras (VAR parsedText: tTexto; numPalabras: integer);
-{'parsedText' no se modifica, solo se lee}
-	VAR n, m, j, maxLongPalabra, totalColumnas, numEnLista, espacios: integer;
+{Aquí 'parsedText' no se modifica, solo se lee}
+	VAR
+		n, m, j, maxLongPalabra, totalColumnas: integer;
+        numEnLista, espacios: integer;
 	BEGIN
 		IF (numPalabras<>0) THEN BEGIN
-			maxLongPalabra:=1;
+			maxLongPalabra:= 1;
 			FOR n:=1 TO numPalabras DO
 				IF (maxLongPalabra<length(parsedText[n])) THEN
-					maxLongPalabra:=length(parsedText[n]);
-			j:=1;
-			totalColumnas:= anchuraConsola div (maxLongPalabra + 6);
+					maxLongPalabra:= length(parsedText[n]);
+			j:= 1;
+			totalColumnas:= (anchuraConsola - 4) div (maxLongPalabra + 6);
+			writeLn('    Palabras en el texto:');
+			writeLn();
 			REPEAT
 				numEnLista:= j + totalColumnas - 1;
 				WHILE (numEnLista>numPalabras) DO numEnLista:= numEnLista - 1;
+				write('    ');
 				FOR n:=j TO numEnLista DO BEGIN
 					write(n:3, '. ');
 					write(parsedText[n]);
@@ -155,9 +160,9 @@ BEGIN {Programa principal}
 	assign(entrada,'texto.txt');
 
 	writeLn();
-	write('Este programa muestra estadisticas del texto ');
+	write('    Este programa muestra estadisticas del texto ');
 	writeLn('en "texto.txt", ');
-	write('archivo en su mismo directorio. Las estadisticas ');
+	write('    archivo en el mismo directorio. Las estadisticas ');
 	writeLn('son las siguientes.');
 	creacionFichero(entrada);
 	printLinea;
@@ -188,23 +193,22 @@ BEGIN {Programa principal}
 
 
 	writeLn();
-	writeLn('Palabras que empiezan por vocal: ');
-	writeLn('Palabras que empiezan por consonante: ');
-	writeLn('Palabras que acaban por vocal: ');
-	writeLn('Palabras que acaban por consonante: ');
-	writeLn('Numero de palabras: ', numPalabras);
-	writeLn('Numero de silabas (sin contar hiatos): ');
+	writeLn('    Palabras que empiezan por vocal: ');
+	writeLn('    Palabras que empiezan por consonante: ');
+	writeLn('    Palabras que acaban por vocal: ');
+	writeLn('    Palabras que acaban por consonante: ');
+	writeLn('    Numero de palabras: ', numPalabras);
+	writeLn('    Numero de silabas (sin contar hiatos): ');
 	printLinea;
 
 	writeLn();
-	writeLn('Palabras en el texto:');
 	printPalabras(parsedText,numPalabras);
 	printLinea;
 
 	readLn();
 
 	{Addendum:
-	No es necesario inicializar parsedText si no se trabaja con strings
-	de parsedText[n] donde n es mayor al numPalabras}
+	No es necesario inicializar parsedText si en el código no se trabaja
+	con strings de parsedText[n] tal que n es mayor al numPalabras}
 
 END.
