@@ -41,7 +41,7 @@ PROCEDURE inicializar (VAR parsedText: tTexto);
 PROCEDURE retirarSimbolos (VAR linea: string);
 {Convierte las lineas de texto a sólo letras minusculas y espacios. P. ej.:
 '¡Vaya ilusion, 6 amigos!' se convierte en ' vaya ilusion    amigos '}
-	VAR n, tamano: integer;
+	VAR n, tamano, ordinal: integer;
 	BEGIN
 		tamano:= length(linea);
 		IF (tamano<>0) THEN BEGIN
@@ -73,8 +73,11 @@ PROCEDURE retirarSimbolos (VAR linea: string);
 					'X': linea[n]:= 'x';
 					'Y': linea[n]:= 'y';
 					'Z': linea[n]:= 'z';
-				ELSE IF ((ord(linea[n])<97) or (ord(linea[n])>122)) THEN
-					linea[n]:= ' ';
+				ELSE
+					BEGIN
+						ordinal:= ord(linea[n]);
+						IF ((ordinal<97) or (ordinal>122)) THEN linea[n]:= ' ';
+					END;
 				END;
 			END;
 		END;
