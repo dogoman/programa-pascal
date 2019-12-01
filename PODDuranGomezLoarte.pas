@@ -9,8 +9,8 @@ o el numero máximo de letras por palabra, si es necesario.}
 	maxPalabras= 250;
 	maxLetras= 25;
 	anchuraConsola= 120; {Anchura en numero de caracteres}
-	{Por defecto en Windows 10 y servidores myApps URJC la consola es de
-	120 chars de ancho. Windows 7 y XP: 80 chars.}
+	{Por defecto en Windows 10 y myApps la consola es 120 chars ancho.
+	Windows 7 y XP: 80 chars.}
 TYPE
 	tPalabra= string[maxLetras];
 	tTexto= array[1..maxPalabras] of tPalabra;
