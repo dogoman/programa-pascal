@@ -185,11 +185,11 @@ de 'parsedText[n]' serán 'silabasMatriz[n]'}
 (y respectivas variantes con hache intercalada) se consideran aquí
 diptongos/triptongos siempre, aunque en realidad sean a veces hiatos.
 
-P. ej:				- día (2 sílabas)	- capicúa (4)	- baúl (2)
-					- maíz (2)			- búho (2)		- ahí (2)
+P. ej:				día (2 sílabas), capicúa (4), baúl (2),
+					maíz (2), búho (2), ahí (2)
 
-Se procesan así:	- dia (1 sílaba)	- capicua (3)	- baul (1)
-					- maiz (1)			- buho (1)		- ahi (1)
+Se procesan así:	dia (1 sílaba), capicua (3), baul (1),
+					maiz (1), buho (1), ahi (1)
 
 Distinguir estos hiatos requeriría trabajar con tildes.}
 
