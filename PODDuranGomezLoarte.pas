@@ -14,7 +14,7 @@ o el numero máximo de letras por palabra, si es necesario.}
 TYPE
 	tPalabra= string[maxLetras];
 	tTexto= array[1..maxPalabras] of tPalabra;
-	tSilabas= array [1..maxPalabras] of integer;
+	tSilabas= array[1..maxPalabras] of integer;
 VAR
 	entrada: text;
 	parsedText: tTexto;
@@ -32,7 +32,7 @@ PROCEDURE creacionFichero (VAR entrada: text);
 		{$I+} {se activa para detectar otros errores que no controlamos}
 		IF (IOResult<>0) THEN BEGIN
 			rewrite(entrada);
-			writeLn(entrada,'Archivo creado.');
+			writeLn(entrada, 'Archivo creado.');
 			close(entrada);
 			writeLn('    (El archivo "texto.txt" no existe, ha sido creado.)');
 		END;
@@ -150,7 +150,7 @@ consonanteInicial: integer; numPalabras: integer);
 	BEGIN
 		vocalInicial:= 0;
 		IF (numPalabras<>0) THEN BEGIN
-			FOR n:= 1 to numPalabras DO BEGIN
+			FOR n:=1 to numPalabras DO BEGIN
 				letra:= parsedText[n][1];
 				IF esVocal(letra) THEN vocalInicial:= vocalInicial + 1;
 			END;
@@ -164,7 +164,7 @@ consonanteFinal: integer; numPalabras: integer);
 	BEGIN
 		vocalFinal:= 0;
 		IF (numPalabras<>0) THEN BEGIN
-			FOR n:= 1 to numPalabras DO BEGIN
+			FOR n:=1 to numPalabras DO BEGIN
 				j:= length(parsedText[n]);
 				letra:= parsedText[n][j];
 				IF esVocal(letra) THEN vocalFinal:= vocalFinal + 1;
