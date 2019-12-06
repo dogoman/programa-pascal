@@ -199,7 +199,6 @@ Distinguir estos hiatos requeriría trabajar con tildes.}
 		j, silabas, longitud: integer;
 		palabra: tPalabra;
 		acabar: boolean;
-		asignacion: integer;
 		iteraciones: integer;
 		{Cuando son demasiadas iteraciones se hace error handling}
 	BEGIN
