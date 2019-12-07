@@ -192,7 +192,6 @@ Se procesan así:
 
 		dia (1 sílaba), capicua (3), baul (1), maiz (1), buho (1), ahi (1)
 
-
 Distinguir estos hiatos requeriría trabajar con tildes.}
 
 	VAR
