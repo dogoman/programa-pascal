@@ -6,15 +6,15 @@ No debe haber tildes ni eñes. El texto reside en 'texto.txt' junto al programa.
 CONST
 {Aumentar el numero máximo de palabras,
 o el numero máximo de letras por palabra, si es necesario.}
-	maxPalabras= 250;
-	maxLetras= 35;
-	anchuraConsola= 120; {Anchura en numero de caracteres}
+	MAXPALABRAS= 250;
+	MAXLETRAS= 35;
+	ANCHURACONSOLA= 120; {Anchura en numero de caracteres}
 	{Por defecto en Windows 10 y myApps la consola es 120 chars ancho.
 	Windows 7 y XP: 80 chars.}
 TYPE
-	tPalabra= string[maxLetras];
-	tTexto= array[1..maxPalabras] of tPalabra;
-	tSilabas= array[1..maxPalabras] of integer;
+	tPalabra= string[MAXLETRAS];
+	tTexto= array[1..MAXPALABRAS] of tPalabra;
+	tSilabas= array[1..MAXPALABRAS] of integer;
 VAR
 	entrada: text;
 	parsedText: tTexto;
@@ -332,7 +332,7 @@ numPalabras: integer);
 				IF (maxLongPalabra<length(parsedText[n])) THEN
 					maxLongPalabra:= length(parsedText[n]);
 			j:= 1;
-			totalColumnas:= (anchuraConsola - 5) div (maxLongPalabra + 11);
+			totalColumnas:= (ANCHURACONSOLA - 5) div (maxLongPalabra + 11);
 			writeLn('    Palabras en el texto y sus silabas:');
 			writeLn();
 			REPEAT
@@ -358,7 +358,7 @@ numPalabras: integer);
 PROCEDURE printLinea;
 	VAR n: integer;
 	BEGIN
-		FOR n:=1 TO (anchuraConsola-1) DO write('-');
+		FOR n:=1 TO (ANCHURACONSOLA-1) DO write('-');
 		writeLn();
 	END;
 BEGIN {Programa principal}
