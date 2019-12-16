@@ -150,7 +150,7 @@ consonanteInicial: integer; numPalabras: integer);
 	BEGIN
 		vocalInicial:= 0;
 		IF (numPalabras<>0) THEN BEGIN
-			FOR n:=1 to numPalabras DO BEGIN
+			FOR n:=1 TO numPalabras DO BEGIN
 				letra:= parsedText[n][1];
 				IF esVocal(letra) THEN vocalInicial:= vocalInicial + 1;
 			END;
@@ -164,7 +164,7 @@ consonanteFinal: integer; numPalabras: integer);
 	BEGIN
 		vocalFinal:= 0;
 		IF (numPalabras<>0) THEN BEGIN
-			FOR n:=1 to numPalabras DO BEGIN
+			FOR n:=1 TO numPalabras DO BEGIN
 				j:= length(parsedText[n]);
 				letra:= parsedText[n][j];
 				IF esVocal(letra) THEN vocalFinal:= vocalFinal + 1;
