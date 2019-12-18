@@ -12,7 +12,7 @@ o el numero máximo de letras por palabra, si es necesario.}
 	{Por defecto en Windows 10 y myApps la consola es 120 chars ancho.
 	Windows 7 y XP: 80 chars.}
 TYPE
-    tPalabra= string[MAXLETRAS];
+	tPalabra= string[MAXLETRAS];
 	tFicha=	RECORD
 			palabra: tPalabra;
 			silabas: integer;
