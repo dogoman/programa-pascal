@@ -3,7 +3,7 @@ PROGRAM PODDuranGomezLoarte (input, output);
 {Este programa muestra estadísticas varias de un texto corto en castellano.
 No debe haber tildes ni eñes. El texto reside en 'texto.txt' junto al programa.}
 
-{Tab default width in original editor is 4 spaces}
+{Tab default width in original editor is 4 spaces.}
 
 CONST
 {Aumentar el numero máximo de palabras,
