@@ -6,11 +6,11 @@ No debe haber tildes ni eñes. El texto reside en 'texto.txt' junto al programa.
 {Tab default width in original editor is 4 spaces.}
 
 CONST
-{Aumentar el numero máximo de palabras,
-o el numero máximo de letras por palabra, si es necesario.}
+{Aumentar el número máximo de palabras,
+o el número máximo de letras por palabra, si es necesario.}
 	MAXPALABRAS= 250;
 	MAXLETRAS= 35;
-	ANCHURACONSOLA= 120; {anchura en numero de caracteres}
+	ANCHURACONSOLA= 120; {anchura en número de caracteres}
 	{Por defecto en Windows 10 y myApps la consola es 120 chars ancho.
 	Windows 7 y XP: 80 chars.}
 TYPE
@@ -367,8 +367,7 @@ PROCEDURE printPalabras (VAR parsedText: tDatabase; numPalabras: integer);
 		END
 		{En caso de cero palabras.}
 		ELSE writeLn('    El archivo no contiene ninguna palabra.');
-	END;
-PROCEDURE printLinea;
+	END;PROCEDURE printLinea;
 	VAR n: integer;
 	BEGIN
 		FOR n:=1 TO (ANCHURACONSOLA-1) DO write('-');
