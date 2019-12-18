@@ -336,7 +336,7 @@ PROCEDURE printPalabras (VAR parsedText: tDatabase; numPalabras: integer);
 	VAR
 		maxLongPalab, columnas: integer;
 		min, max, espacios: integer;
-		i,j: integer;
+		i, j: integer;
 	BEGIN
 		IF (numPalabras<>0) THEN BEGIN
 			maxLongPalab:= 1;
