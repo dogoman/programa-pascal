@@ -304,7 +304,8 @@ Distinguir estos hiatos requeriría trabajar con tildes.}
 						esCons (palabra[3]) and
 						( esVocal(palabra[4]) or
 						esVocal(palabra[5]) ) THEN BEGIN
-						silabas:= 2;
+						IF esHiato(palabra[4],palabra[5]) THEN silabas:= 3
+						ELSE silabas:= 2;
 						acabar:= TRUE;
 					END
 					{Podriamos seguir escribiendo muchas más condicionales
