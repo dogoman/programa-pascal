@@ -341,7 +341,7 @@ PROCEDURE printPalabras (VAR parsedText: tDatabase; numPalabras: integer);
 		IF (numPalabras<>0) THEN BEGIN
 			maxLongPalab:= 1;
 			FOR i:=1 TO numPalabras DO BEGIN
-                j:= length(parsedText[i].palabra);
+				j:= length(parsedText[i].palabra);
 				IF (maxLongPalab<j) THEN maxLongPalab:= j;
 			END;
 			columnas:= (ANCHURACONSOLA - 5) div (maxLongPalab + 11);
