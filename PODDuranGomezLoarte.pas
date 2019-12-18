@@ -10,7 +10,7 @@ CONST
 o el numero máximo de letras por palabra, si es necesario.}
 	MAXPALABRAS= 250;
 	MAXLETRAS= 35;
-	ANCHURACONSOLA= 120; {Anchura en numero de caracteres}
+	ANCHURACONSOLA= 120; {anchura en numero de caracteres}
 	{Por defecto en Windows 10 y myApps la consola es 120 chars ancho.
 	Windows 7 y XP: 80 chars.}
 TYPE
@@ -28,7 +28,7 @@ VAR
 	vocalFinal, consonanteFinal: integer;
 	numSilabas: integer;
 PROCEDURE creacionFichero (VAR entrada: text);
-{Si no existe el archivo "texto.txt", se crea}
+{Si no existe el archivo "texto.txt", se crea.}
 	BEGIN
 		{$I-} {se desactiva para controlar reset}
 		reset(entrada);
@@ -86,7 +86,7 @@ PROCEDURE retirarSimbolos (VAR linea: string);
 	END;
 PROCEDURE lineasToPalabras (VAR linea: string; VAR parsedText: tDatabase;
 VAR posSigPalabra: integer);
-{Guarda todas las palabras de 'linea' en 'parsedText'}
+{Guarda todas las palabras de 'linea' en 'parsedText'.}
 	VAR
 		j, k, tamano: integer;
 		palabra: tPalabra;
@@ -117,7 +117,7 @@ VAR posSigPalabra: integer);
 	END;
 PROCEDURE textoToPalabras (VAR entrada: text; VAR parsedText: tDatabase;
 VAR numPalabras: integer);
-{Guarda todas las palabras de 'entrada' en 'parsedText', consecutivamente}
+{Guarda todas las palabras de 'entrada' en 'parsedText', consecutivamente.}
 	VAR
 		posSigPalabra: integer;
 		linea: string;
@@ -152,7 +152,7 @@ FUNCTION esHiato (letra1: char; letra2: char): boolean;
 	END;
 PROCEDURE letraInicial (VAR parsedText: tDatabase; VAR vocalInicial,
 consonanteInicial: integer; numPalabras: integer);
-{Aquí 'parsedText' no se modifica, sólo se lee}
+{Aquí 'parsedText' no se modifica, sólo se lee.}
 	VAR
 		n: integer;
 		letra: char;
@@ -168,7 +168,7 @@ consonanteInicial: integer; numPalabras: integer);
 	END;
 PROCEDURE letraFinal (VAR parsedText: tDatabase; VAR vocalFinal,
 consonanteFinal: integer; numPalabras: integer);
-{Aquí 'parsedText' no se modifica, sólo se lee}
+{Aquí 'parsedText' no se modifica, sólo se lee.}
 	VAR
 		n, j: integer;
 		letra: char;
@@ -186,10 +186,10 @@ consonanteFinal: integer; numPalabras: integer);
 PROCEDURE contarSilabas (VAR parsedText: tDatabase; VAR numSilabas: integer;
 numPalabras: integer);
 
-{Aquí 'parsedText' no se modifica, sólo se lee}
+{Aquí 'parsedText' no se modifica, sólo se lee.}
 
 {Cuenta las sílabas de cada palabra, y las sílabas totales.
-Las sílabas de 'parsedText[n].palabra' serán 'parsedText[n].silabas'}
+Las sílabas de 'parsedText[n].palabra' serán 'parsedText[n].silabas'.}
 
 {Las uniones de vocales ia, ie, io, iu; ua, ue, ui, uo; ai, ei, oi; au, eu, ou;
 (y respectivas variantes con hache intercalada) se consideran aquí
@@ -209,7 +209,7 @@ Distinguir estos hiatos requeriría trabajar con tildes.}
 		palabra: tPalabra;
 		acabar: boolean;
 		iteraciones: integer;
-		{Cuando son demasiadas iteraciones se hace error handling}
+		{Cuando son demasiadas iteraciones se hace error handling.}
 	BEGIN
 		numSilabas:= 0;
 		IF (numPalabras<>0) THEN BEGIN
@@ -221,9 +221,9 @@ Distinguir estos hiatos requeriría trabajar con tildes.}
 				REPEAT
 					longitud:= length(palabra);
 					iteraciones:= iteraciones + 1;
-					{Casos más extraños al final de la lista de condicionales}
+					{Casos más extraños al final de la lista de condicionales.}
 
-					{Empieza aquí lista de condicionales}
+					{Empieza aquí lista de condicionales.}
 					IF (longitud<2) THEN BEGIN
 						silabas:= silabas + 1;
 						acabar:= TRUE;
@@ -269,19 +269,19 @@ Distinguir estos hiatos requeriría trabajar con tildes.}
 						silabas:= silabas + 1;
 						palabra:= copy(palabra,6,(longitud-5));
 					END
-					{'Angstromio' y similares}
+					{'Angstromio' y similares.}
 					ELSE IF (longitud>6) and esVocal(palabra[1]) and
 						esVocal(palabra[7]) THEN BEGIN
 						silabas:= silabas + 1;
 						palabra:= copy(palabra,7,(longitud-6));
 					END
-					{Para algunos extranjerismos, 'golf', 'sexy'}
+					{Para algunos extranjerismos, 'golf', 'sexy'.}
 					ELSE IF (longitud<4) and esVocal(palabra[1]) THEN BEGIN
 						IF (palabra[3]='y') THEN silabas:= silabas + 2
 						ELSE silabas:= silabas + 1;
 						acabar:= TRUE;
 					END
-					{Para algunos extranjerismos, 'tests', 'whisky'}
+					{Para algunos extranjerismos, 'tests', 'whisky'.}
 					ELSE IF (longitud<5) and esVocal(palabra[1]) THEN BEGIN
 						IF (palabra[4]='y') THEN silabas:= silabas + 2
 						ELSE silabas:= silabas + 1;
@@ -297,7 +297,7 @@ Distinguir estos hiatos requeriría trabajar con tildes.}
 						acabar:= TRUE;
 					END
 					{Para algunas palabras especiales, 'pymes', 'byte',
-					'bypass', 'lycra'}
+					'bypass', 'lycra'.}
 					ELSE IF (length(parsedText[j].palabra)<7) and
 						esCons(palabra[1]) and (palabra[2]='y') and
 						esCons (palabra[3]) and
@@ -309,9 +309,9 @@ Distinguir estos hiatos requeriría trabajar con tildes.}
 					{Podriamos seguir escribiendo muchas más condicionales
 					o excepciones, pero escapan al propósito real de esta
 					práctica. Software más sofisticado disponible en internet.}
-					{Otros extranjerismos pasarán por error handling}
+					{Otros extranjerismos pasarán por error handling.}
 
-					{Error handling}
+					{Error handling.}
 					ELSE IF (iteraciones>50) THEN BEGIN
 						writeLn();
 						write('    El programa no consigue contar las ');
@@ -331,7 +331,7 @@ Distinguir estos hiatos requeriría trabajar con tildes.}
 		END;
 	END;
 PROCEDURE printPalabras (VAR parsedText: tDatabase; numPalabras: integer);
-{Aquí 'parsedText' no se modifica, sólo se lee}
+{Aquí 'parsedText' no se modifica, sólo se lee.}
 	VAR
 		n, m, j, maxLongPalab, totalColumnas: integer;
 		numEnLista, espacios: integer;
@@ -362,7 +362,7 @@ PROCEDURE printPalabras (VAR parsedText: tDatabase; numPalabras: integer);
 				writeLn();
 			UNTIL (numEnLista=numPalabras);
 		END
-		{En caso de cero palabras}
+		{En caso de cero palabras.}
 		ELSE writeLn('    El archivo no contiene ninguna palabra.');
 	END;
 PROCEDURE printLinea;
@@ -371,7 +371,7 @@ PROCEDURE printLinea;
 		FOR n:=1 TO (ANCHURACONSOLA-1) DO write('-');
 		writeLn();
 	END;
-BEGIN {Programa principal}
+BEGIN {programa principal}
 
 	assign(entrada,'texto.txt');
 
@@ -384,14 +384,14 @@ BEGIN {Programa principal}
 	printLinea;
 
 	reset(entrada);
-	{Convertimos el texto en un array de palabras}
+	{Convertimos el texto en un array de palabras.}
 	textoToPalabras(entrada,parsedText,numPalabras);
-	{Ahora trabajamos con el array en 'parsedText'}
+	{Ahora trabajamos con el array en 'parsedText'.}
 	close(entrada);
 
-	{Numero de vocales y consonantes iniciales}
+	{Número de vocales y consonantes iniciales.}
 	letraInicial(parsedText,vocalInicial,consonanteInicial,numPalabras);
-	{Numero de vocales y consonantes finales}
+	{Número de vocales y consonantes finales.}
 	letraFinal(parsedText,vocalFinal,consonanteFinal,numPalabras);
 
 	contarSilabas(parsedText,numSilabas,numPalabras);
@@ -406,7 +406,7 @@ BEGIN {Programa principal}
 	printLinea;
 
 	writeLn();
-	{Mostramos la lista de palabras con sus respectivos números de sílabas}
+	{Mostramos la lista de palabras con sus respectivos números de sílabas.}
 	printPalabras(parsedText,numPalabras);
 	printLinea;
 
