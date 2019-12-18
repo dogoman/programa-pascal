@@ -18,7 +18,6 @@ TYPE
 			silabas: integer;
 			END;
 	tDatabase= array[1..MAXPALABRAS] of tFicha;
-
 VAR
 	entrada: text;
 	parsedText: tDatabase;
@@ -26,7 +25,6 @@ VAR
 	vocalInicial, consonanteInicial: integer;
 	vocalFinal, consonanteFinal: integer;
 	numSilabas: integer;
-
 PROCEDURE creacionFichero (VAR entrada: text);
 {Si no existe el archivo "texto.txt", se crea}
 	BEGIN
@@ -411,5 +409,4 @@ BEGIN {Programa principal}
 	printLinea;
 
 	readLn();
-
 END.
