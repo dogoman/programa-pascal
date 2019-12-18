@@ -6,11 +6,11 @@ No debe haber tildes ni eñes. El texto reside en 'texto.txt' junto al programa.
 {Tab default width in original editor is 4 spaces.}
 
 CONST
-{Aumentar el número máximo de palabras,
-o el número máximo de letras por palabra, si es necesario.}
+{Aumentar el numero máximo de palabras,
+o el numero máximo de letras por palabra, si es necesario.}
 	MAXPALABRAS= 250;
 	MAXLETRAS= 35;
-	ANCHURACONSOLA= 120; {anchura en número de caracteres}
+	ANCHURACONSOLA= 120; {anchura en numero de caracteres}
 	{Por defecto en Windows 10 y myApps la consola es 120 chars ancho.
 	Windows 7 y XP: 80 chars.}
 TYPE
@@ -334,34 +334,36 @@ Distinguir estos hiatos requeriría trabajar con tildes.}
 PROCEDURE printPalabras (VAR parsedText: tDatabase; numPalabras: integer);
 {Aquí 'parsedText' no se modifica, sólo se lee.}
 	VAR
-		n, m, j, maxLongPalab, totalColumnas: integer;
-		numEnLista, espacios: integer;
+		maxLongPalab, columnas: integer;
+		min, max, espacios: integer;
+		i,j: integer;
 	BEGIN
 		IF (numPalabras<>0) THEN BEGIN
 			maxLongPalab:= 1;
-			FOR n:=1 TO numPalabras DO
-				IF (maxLongPalab<length(parsedText[n].palabra)) THEN
-					maxLongPalab:= length(parsedText[n].palabra);
-			j:= 1;
-			totalColumnas:= (ANCHURACONSOLA - 5) div (maxLongPalab + 11);
+			FOR i:=1 TO numPalabras DO BEGIN
+                j:= length(parsedText[i].palabra);
+				IF (maxLongPalab<j) THEN maxLongPalab:= j;
+			END;
+			columnas:= (ANCHURACONSOLA - 5) div (maxLongPalab + 11);
 			writeLn('    Palabras en el texto y sus silabas:');
 			writeLn();
+			min:= 1;
 			REPEAT
-				numEnLista:= j + totalColumnas - 1;
-				WHILE (numEnLista>numPalabras) DO numEnLista:= numEnLista - 1;
+				max:= min + columnas - 1;
+				IF (max>numPalabras) THEN max:= numPalabras;
 				write('    ');
-				FOR n:=j TO numEnLista DO BEGIN
-					write(n:3, '. ');
-					write(parsedText[n].palabra);
-					IF (parsedText[n].silabas>9) THEN
-						write(' (', parsedText[n].silabas, ')')
-					ELSE write(' (', parsedText[n].silabas, ') ');
-					espacios:= maxLongPalab - length(parsedText[n].palabra) + 1;
-					FOR m:=1 TO espacios DO write(' ');
+				FOR i:=min TO max DO BEGIN
+					write(i:3, '. ');
+					write(parsedText[i].palabra);
+					IF (parsedText[i].silabas>9) THEN
+						write(' (', parsedText[i].silabas, ')')
+					ELSE write(' (', parsedText[i].silabas, ') ');
+					espacios:= maxLongPalab - length(parsedText[i].palabra) + 1;
+					FOR j:=1 TO espacios DO write(' ');
 				END;
-				j:= numEnLista + 1;
+				min:= max + 1;
 				writeLn();
-			UNTIL (numEnLista=numPalabras);
+			UNTIL (max=numPalabras);
 		END
 		{En caso de cero palabras.}
 		ELSE writeLn('    El archivo no contiene ninguna palabra.');
