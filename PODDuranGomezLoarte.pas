@@ -367,7 +367,8 @@ PROCEDURE printPalabras (VAR parsedText: tDatabase; numPalabras: integer);
 		END
 		{En caso de cero palabras.}
 		ELSE writeLn('    El archivo no contiene ninguna palabra.');
-	END;PROCEDURE printLinea;
+	END;
+PROCEDURE printLinea;
 	VAR n: integer;
 	BEGIN
 		FOR n:=1 TO (ANCHURACONSOLA-1) DO write('-');
