@@ -289,7 +289,7 @@ Distinguir estos hiatos requeriría trabajar con tildes.}
 						acabar:= TRUE;
 					END
 					{Onomatopeyas, 'Pfff', 'Shhh', etc.}
-					ELSE IF (length(parsedText[j].palabra)<5) and
+					ELSE IF (longitud<5) and (iteraciones=1) and
 						(pos('a',palabra)=0) and (pos('e',palabra)=0) and
 						(pos('i',palabra)=0) and (pos('o',palabra)=0) and
 						(pos('u',palabra)=0) and
@@ -299,12 +299,15 @@ Distinguir estos hiatos requeriría trabajar con tildes.}
 					END
 					{Para algunas palabras especiales, 'pymes', 'byte',
 					'bypass', 'lycra'.}
-					ELSE IF (length(parsedText[j].palabra)<7) and
+					ELSE IF (longitud<7) and (iteraciones=1) and
 						esCons(palabra[1]) and (palabra[2]='y') and
 						esCons (palabra[3]) and
-						( esVocal(palabra[4]) or
-						esVocal(palabra[5]) ) THEN BEGIN
-						IF esHiato(palabra[4],palabra[5]) THEN silabas:= 3
+						( ((longitud>3) and esVocal(palabra[4])) or
+						((longitud>4) and esVocal(palabra[5])) ) and
+						( ((longitud>5) and esCons (palabra[6])) or
+						(longitud<6) ) THEN BEGIN
+						IF (longitud>4) and esHiato(palabra[4],palabra[5])
+							THEN silabas:= 3
 						ELSE silabas:= 2;
 						acabar:= TRUE;
 					END
