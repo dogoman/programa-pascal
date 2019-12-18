@@ -294,17 +294,17 @@ Distinguir estos hiatos requeriría trabajar con tildes.}
 						(pos('i',palabra)=0) and (pos('o',palabra)=0) and
 						(pos('u',palabra)=0) and
 						(palabra[2]=palabra[3]) THEN BEGIN
-						silabas:= silabas + 1;
+						silabas:= 1;
 						acabar:= TRUE;
 					END
 					{Para algunas palabras especiales, 'pymes', 'byte',
 					'bypass', 'lycra'.}
 					ELSE IF (longitud<7) and (iteraciones=1) and
 						esCons(palabra[1]) and (palabra[2]='y') and
-						esCons (palabra[3]) and
+						esCons(palabra[3]) and
 						( ((longitud>3) and esVocal(palabra[4])) or
 						((longitud>4) and esVocal(palabra[5])) ) and
-						( ((longitud>5) and esCons (palabra[6])) or
+						( ((longitud>5) and esCons(palabra[6])) or
 						(longitud<6) ) THEN BEGIN
 						IF (longitud>4) and esHiato(palabra[4],palabra[5])
 							THEN silabas:= 3
